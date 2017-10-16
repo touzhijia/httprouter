@@ -246,6 +246,20 @@ func (r *Router) Handler(method, path string, handler http.Handler) {
 	)
 }
 
+// Any is an adapter which allows the usage of an http.Handler as a
+// request handle.
+func (r *Router) HandlerAny(path string, handler http.Handler) {
+	r.Handler("GET", path, handler)
+	r.Handler("POST", path, handler)
+	r.Handler("PUT", path, handler)
+	r.Handler("PATCH", path, handler)
+	r.Handler("HEAD", path, handler)
+	r.Handler("OPTIONS", path, handler)
+	r.Handler("DELETE", path, handler)
+	r.Handler("CONNECT", path, handler)
+	r.Handler("TRACE", path, handler)
+}
+
 // HandlerFunc is an adapter which allows the usage of an http.HandlerFunc as a
 // request handle.
 func (r *Router) HandlerFunc(method, path string, handler http.HandlerFunc) {
